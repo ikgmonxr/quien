@@ -2,43 +2,38 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Lista en memoria para guardar los registros
+// Lista para guardar los nombres en la página web de logs
 const executionLogs = [];
 
 app.use(express.json());
 
-// Página principal
-app.get('/', (req, res) => {
-    res.send('¡Servidor de Roblox activo y funcionando correctamente!');
-});
-
-// NUEVA PÁGINA: Si entras a tuenlace.onrender.com/logs verás la lista en pantalla
+// Página para ver los logs visualmente en: https://hubsilent-v2.onrender.com/logs
 app.get('/logs', (req, res) => {
-    let html = '<h1>Historial de Ejecuciones de Roblox</h1><ul>';
+    let html = '<h1>Historial de Ejecuciones de mi Script</h1><ul>';
     if (executionLogs.length === 0) {
-        html += '<li>Aún nadie ha ejecutado el script.</li>';
+        html += '<li>Nadie ha ejecutado el script todavía.</li>';
     } else {
         executionLogs.forEach(log => {
-            html += `<li><b>Usuario:</b> ${log.player} — <b>Hora:</b> ${log.time}</li>`;
+            html += `<li><b>Usuario de Roblox:</b> ${log.player} — <b>Hora:</b> ${log.time}</li>`;
         });
     }
     html += '</ul>';
     res.send(html);
 });
 
-// Endpoint que entrega el script y registra al jugador
-app.get('/script', (req, res) => {
+// Tu ruta exacta del script que registra al usuario
+app.get('/api/script/98dc15a0a85ee7e6f51481a6e51b1527', (req, res) => {
     const playerName = req.query.player || "Anónimo";
     const timestamp = new Date().toLocaleString();
     
-    // Guarda el registro en la lista y en la consola de Render
-    executionLogs.unshift({ player: playerName, time: timestamp }); // Añade el más reciente arriba
+    // Guarda el registro para que aparezca en /logs y en la consola de Render
+    executionLogs.unshift({ player: playerName, time: timestamp });
     console.log(`[EJECUCIÓN EXITOSA] Usuario: ${playerName} | Hora: ${timestamp}`);
     
-    // AQUÍ COLOCAS EL CÓDIGO DE TU SCRIPT DE ROBLOX (LUAU)
+    // AQUÍ VA EL CÓDIGO REAL DE TU SCRIPT DE ROBLOX (UI, AIMS, ETC.)
     const robloxScript = `
         print("¡Script cargado con éxito para ${playerName}!");
-        -- Pega aquí el resto de tu código o interfaz gráfica (UI)
+        -- PEGA AQUÍ TODO EL RESTO DE TU CÓDIGO DE LUAU
     `;
     
     res.setHeader('Content-Type', 'text/plain');
