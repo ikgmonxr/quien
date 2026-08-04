@@ -1,0 +1,12 @@
+{
+  "name": "roblox-logger-backend",
+  "version": "1.0.0",
+  "description": "Backend para registrar ejecuciones de loadstring en Roblox",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
