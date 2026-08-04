@@ -4,6 +4,11 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Ruta principal para que aparezca un mensaje de estado en lugar de "Cannot GET /"
+app.get('/', (req, res) => {
+    res.send('¡Servidor de Roblox activo y funcionando correctamente!');
+});
+
 // Endpoint principal que recibe al usuario y entrega el script
 app.get('/script', (req, res) => {
     const playerName = req.query.player || "Anónimo";
