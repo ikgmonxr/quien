@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikgonavi Hub | Scripts & Exploits</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        cardBg: 'rgba(17, 24, 39, 0.7)',
+                        neonPurple: '#a855f7',
+                        neonBlue: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0b0f19;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .glass {
+            background: rgba(17, 24, 39, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .neon-glow {
+            box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.4);
+        }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="w-full glass sticky top-0 z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-blue-500 flex items-center justify-center neon-glow">
+                    <i class="fa-solid fa-code text-white text-lg"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                    IKGONAVI HUB
+                </span>
+            </div>
+            <div>
+                <button onclick="copyToClipboard('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/ikgmonxr/Ikgonavi/refs/heads/main/Hub\'))()', this)" 
+                    class="relative group px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0">
+                    <i class="fa-solid fa-terminal mr-2"></i> Copiar Main Hub
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
+        
+        <!-- Hero Section -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="inline-block py-1 px-3 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-4">
+                ✨ El mejor Script Hub de Roblox
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
+                Potencia tu juego al <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">máximo nivel</span>
+            </h1>
+            <p class="text-gray-400 text-lg">
+                Scripts optimizados, indetectables y actualizados constantemente para dominar tus modos de juego favoritos de Roblox.
+            </p>
+        </div>
+
+        <!-- Grid de Scripts -->
+        <h2 class="text-2xl font-bold mb-8 flex items-center">
+            <i class="fa-solid fa-fire text-purple-500 mr-3"></i> Scripts Destacados & Juegos
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1: Murder Mystery 2 -->
+            <div class="glass rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all duration-300 group">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="p-3 rounded-xl bg-purple-500/10 text-purple-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-skull"></i>
+                        </span>
+                        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Aktivo</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Murder Mystery 2</h3>
+                    <p class="text-gray-400 text-sm mb-6">Script completo con funciones exclusivas para destacar en MM2.</p>
+                </div>
+                <button onclick="copyToClipboard('loadstring(game:HttpGet(\'https://https-api-ikg-com-api-v1-luascripts.onrender.com/api/script/7752d53d155a5d26715209fab1438cd9\'))()', this)"
+                    class="w-full py-3 px-4 rounded-xl font-medium text-sm bg-gray-800/80 hover:bg-purple-600 text-gray-200 hover:text-white border border-gray-700 hover:border-transparent transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>Copiar Script MM2</span>
+                </button>
+            </div>
+
+            <!-- Card 2: Murder vs Sheriff -->
+            <div class="glass rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all duration-300 group">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="p-3 rounded-xl bg-blue-500/10 text-blue-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gun"></i>
+                        </span>
+                        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Aktivo</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Murder vs Sheriff (Duels)</h3>
+                    <p class="text-gray-400 text-sm mb-6">Domina los duelos y gana todas las rondas fácilmente.</p>
+                </div>
+                <button onclick="copyToClipboard('loadstring(game:HttpGet(\'https://https-api-ikg-com-api-v1-luascripts.onrender.com/api/script/34e93f16f26764708ccb5c63e2372341\'))()', this)"
+                    class="w-full py-3 px-4 rounded-xl font-medium text-sm bg-gray-800/80 hover:bg-purple-600 text-gray-200 hover:text-white border border-gray-700 hover:border-transparent transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>Copiar Script Duels</span>
+                </button>
+            </div>
+
+            <!-- Card 3: Oxygen Per -->
+            <div class="glass rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all duration-300 group">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wind"></i>
+                        </span>
+                        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Actualizado</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Oxygen Per</h3>
+                    <p class="text-gray-400 text-sm mb-6">Automatización y mejoras para Oxygen Per en Roblox.</p>
+                </div>
+                <button onclick="alert('Usa el Main Hub para cargar este script o añade su enlace personalizado.');"
+                    class="w-full py-3 px-4 rounded-xl font-medium text-sm bg-gray-800/80 hover:bg-purple-600 text-gray-200 hover:text-white border border-gray-700 hover:border-transparent transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Ver en el Hub</span>
+                </button>
+            </div>
+
+            <!-- Card 4: +1 Ladder Per Click -->
+            <div class="glass rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all duration-300 group">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="p-3 rounded-xl bg-amber-500/10 text-amber-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-stairs"></i>
+                        </span>
+                        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Simulator</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">+1 Ladder Per Click</h3>
+                    <p class="text-gray-400 text-sm mb-6">Consigue escaleras infinitas automáticamente con un clic.</p>
+                </div>
+                <button onclick="alert('Disponible dentro del Main Hub.');"
+                    class="w-full py-3 px-4 rounded-xl font-medium text-sm bg-gray-800/80 hover:bg-purple-600 text-gray-200 hover:text-white border border-gray-700 hover:border-transparent transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Ver en el Hub</span>
+                </button>
+            </div>
+
+            <!-- Card 5: +1 Evolución Mágica -->
+            <div class="glass rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all duration-300 group">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="p-3 rounded-xl bg-pink-500/10 text-pink-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </span>
+                        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Simulator</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">+1 Evolución Mágica</h3>
+                    <p class="text-gray-400 text-sm mb-6">Evoluciona al máximo nivel sin esfuerzo en segundos.</p>
+                </div>
+                <button onclick="alert('Disponible dentro del Main Hub.');"
+                    class="w-full py-3 px-4 rounded-xl font-medium text-sm bg-gray-800/80 hover:bg-purple-600 text-gray-200 hover:text-white border border-gray-700 hover:border-transparent transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Ver en el Hub</span>
+                </button>
+            </div>
+
+            <!-- Card 6: +1 Click x Fuerza -->
+            <div class="glass rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 transition-all duration-300 group">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="p-3 rounded-xl bg-red-500/10 text-red-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </span>
+                        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Simulator</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">+1 Click x Fuerza</h3>
+                    <p class="text-gray-400 text-sm mb-6">Consigue fuerza descomunal automáticamente sin parar.</p>
+                </div>
+                <button onclick="alert('Disponible dentro del Main Hub.');"
+                    class="w-full py-3 px-4 rounded-xl font-medium text-sm bg-gray-800/80 hover:bg-purple-600 text-gray-200 hover:text-white border border-gray-700 hover:border-transparent transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Ver en el Hub</span>
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass border-t border-gray-800 mt-20 py-8 text-center text-sm text-gray-500">
+        <p>© 2026 <span class="text-purple-400 font-semibold">Ikgonavi Hub</span>. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script de Notificación de Copiado -->
+    <script>
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fa-solid fa-check text-green-400 mr-2"></i> ¡Copiado!';
+                button.classList.add('border-green-500');
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('border-green-500');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
