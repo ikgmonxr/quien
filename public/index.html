@@ -8,56 +8,186 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #050508; --card: #0c0c12; --border: #1e1e2a;
-      --pink: #ff2d95; --cyan: #00e5ff; --muted: #8b8b9e;
+      --bg: #050508;
+      --card: #0c0c12;
+      --border: #1e1e2a;
+      --pink: #ff2d95;
+      --cyan: #00e5ff;
+      --muted: #8b8b9e;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; min-height: 100vh; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: #fff;
+      min-height: 100vh;
+    }
     header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 32px; background: rgba(5,5,8,0.85); backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: rgba(5,5,8,0.85);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font-weight: 700; font-size: 1.25rem; }
-    .logo img { width: 32px; height: 32px; border-radius: 8px; }
-    nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 22px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
     nav a:hover { color: #fff; }
     .btn {
-      display: inline-flex; padding: 10px 18px; border-radius: 9px;
-      font-weight: 600; font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer;
+      display: inline-flex;
+      padding: 10px 18px;
+      border-radius: 9px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
     }
-    .btn-primary { background: linear-gradient(135deg, #ff2d95, #c51162); color: #fff; }
-    .hero { text-align: center; padding: 60px 20px 30px; }
-    .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; }
-    .hero h1 span { background: linear-gradient(135deg, #ff2d95, #00e5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { color: var(--muted); max-width: 500px; margin: 0 auto; }
-    .tool { max-width: 860px; margin: 0 auto 60px; padding: 0 20px; }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff2d95, #c51162);
+      color: #fff;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 20px 35px;
+    }
+    .hero h1 {
+      font-size: 2.9rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #ff2d95, #00e5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+    .tool {
+      max-width: 880px;
+      margin: 0 auto 70px;
+      padding: 0 20px;
+    }
     .tool-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
     }
     textarea {
-      width: 100%; height: 170px; background: #08080e; border: 1px solid var(--border);
-      border-radius: 10px; color: #ddd; padding: 12px; font-family: monospace; font-size: 0.85rem; resize: vertical;
+      width: 100%;
+      height: 180px;
+      background: #08080e;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: #ddd;
+      padding: 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      resize: vertical;
+      outline: none;
     }
-    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+    textarea:focus { border-color: var(--pink); }
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 16px 0 12px;
+    }
     .btn-tool {
-      padding: 9px 16px; border-radius: 8px; font-weight: 600; font-size: 0.85rem;
-      border: none; cursor: pointer; color: #fff;
+      padding: 10px 16px;
+      border-radius: 9px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      transition: 0.2s;
     }
-    .btn-detect { background: #1a1a28; border: 1px solid var(--border); }
-    .btn-dump { background: linear-gradient(135deg, #ff2d95, #c51162); }
-    .btn-clean { background: #1a1a28; border: 1px solid var(--border); }
+    .btn-detect {
+      background: #1a1a28;
+      border: 1px solid var(--border);
+    }
+    .btn-detect:hover { border-color: var(--cyan); }
+    .btn-dump {
+      background: linear-gradient(135deg, #ff2d95, #c51162);
+    }
+    .btn-clean {
+      background: #1a1a28;
+      border: 1px solid var(--border);
+    }
+    .btn-deobf {
+      background: linear-gradient(135deg, #00e5ff, #0077ff);
+    }
     .result-box {
-      background: #08080e; border: 1px solid var(--border); border-radius: 10px;
-      padding: 14px; font-family: monospace; font-size: 0.8rem; color: #00e5ff;
-      white-space: pre-wrap; max-height: 380px; overflow-y: auto; display: none; margin-top: 12px;
+      background: #08080e;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: #00e5ff;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 420px;
+      overflow-y: auto;
+      display: none;
+      margin-top: 12px;
     }
     .result-box.show { display: block; }
     .badge {
-      display: inline-block; background: rgba(255,45,149,0.15); border: 1px solid rgba(255,45,149,0.35);
-      color: var(--pink); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px;
+      display: inline-block;
+      background: rgba(255,45,149,0.15);
+      border: 1px solid rgba(255,45,149,0.35);
+      color: var(--pink);
+      padding: 5px 13px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
     }
-    footer { text-align: center; padding: 24px; color: #555; font-size: 0.85rem; border-top: 1px solid var(--border); }
+    footer {
+      text-align: center;
+      padding: 26px;
+      color: #555;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    footer a:hover { color: #fff; }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.1rem; }
+      nav a:not(.btn) { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -74,23 +204,31 @@
 
   <section class="hero">
     <h1>Script <span>Deobfuscator</span></h1>
-    <p>Detecta ofuscadores, extrae strings, URLs y keys. Motor basado en DarkBot.</p>
+    <p>Detecta ofuscadores, extrae strings, URLs, keys y limpia el código. Motor basado en DarkBot.</p>
   </section>
 
   <section class="tool">
     <div class="tool-card">
-      <textarea id="inputCode" placeholder="Pega aquí el script ofuscado..."></textarea>
+      <textarea id="inputCode" placeholder="Pega aquí el script ofuscado (MoonSec, Luraph, IronBrew, etc.)..."></textarea>
+
       <div class="actions">
         <button class="btn-tool btn-detect" onclick="callAPI('detect')">Detectar</button>
         <button class="btn-tool btn-dump" onclick="callAPI('dump')">Dump Strings + Keys</button>
-        <button class="btn-tool btn-clean" onclick="callAPI('cleanup')">Limpieza</button>
+        <button class="btn-tool btn-clean" onclick="callAPI('cleanup')">Limpieza Básica</button>
+        <button class="btn-tool btn-deobf" onclick="callAPI('deobfuscate')">Código Limpio</button>
       </div>
+
       <div id="badge"></div>
       <div id="output" class="result-box"></div>
     </div>
   </section>
 
-  <footer>© 2026 QyrexApi — Engine based on DarkBot</footer>
+  <footer>
+    <a href="https://discord.gg/22zBzxK6S" target="_blank">Discord</a>
+    <a href="https://qyrex.hopto.org/">Dashboard</a>
+    <br><br>
+    © 2026 QyrexApi — Engine based on DarkBot
+  </footer>
 
   <script>
     async function callAPI(type) {
@@ -111,17 +249,23 @@
         const data = await res.json();
 
         if (type === "detect") {
-          badge.innerHTML = `<div class="badge">Detectado: ${data.detected[0][0]} (${Math.round(data.detected[0][1]*100)}%)</div>`;
-          output.textContent = data.detected.map(([n,s]) => `${n} → ${Math.round(s*100)}%`).join("\n");
-        } else if (type === "dump") {
+          badge.innerHTML = `<div class="badge">Detectado: ${data.detected[0][0]} (${Math.round(data.detected[0][1] * 100)}%)</div>`;
+          output.textContent = data.detected.map(([n, s]) => `${n} → ${Math.round(s * 100)}%`).join("\n");
+        } 
+        else if (type === "dump") {
           badge.innerHTML = `<div class="badge">Detectado: ${data.detected[0]}</div>`;
           output.textContent = data.result;
-        } else {
+        }
+        else if (type === "deobfuscate") {
+          badge.innerHTML = `<div class="badge">Detectado: ${data.detected[0]} | Código Limpio</div>`;
+          output.textContent = data.result + (data.note ? "\n\n-- " + data.note : "");
+        }
+        else {
           badge.innerHTML = "";
           output.textContent = data.result;
         }
       } catch (err) {
-        output.textContent = "Error al conectar con el servidor";
+        output.textContent = "Error al conectar con el servidor.\nAsegúrate de que el backend esté corriendo.";
       }
     }
   </script>
