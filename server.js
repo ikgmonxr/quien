@@ -6,10 +6,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json({ limit: "5mb" }));
+app.use(express.json({ limit: "8mb" }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// ============ LÓGICA DEL DARKBOT (convertida a JS) ============
+// ==================== LÓGICA DARKBOT ====================
 
 const DETECT_RULES = [
   [/This file was protected with MoonSec V3/i, "MoonSec V3", 0.98],
@@ -90,16 +90,41 @@ function basicBeautify(code) {
   return code.trim();
 }
 
-function moonsecCleanup(code) {
+function advancedCleanup(code) {
+  // Quitar header MoonSec
   code = code.replace(
     /\(\[\[This file was protected with MoonSec V3.*?\]\]\):gsub\(.*?function\(.*?end\)/gis,
     ""
   );
   code = code.replace(/This file was protected with MoonSec V3[^\n]*/gi, "");
-  return basicBeautify(code);
+
+  // Quitar comentarios
+  code = code.replace(/--\[\[.*?\]\]/gs, "");
+  code = code.replace(/--[^\n]*/g, "");
+
+  // Intentar decodificar string.char simples
+  code = code.replace(/string\.char\s*\(([\d\s,]+)\)/g, (match, nums) => {
+    try {
+      const chars = nums
+        .split(",")
+        .map((x) => parseInt(x.trim()))
+        .filter((n) => !isNaN(n) && n >= 32 && n <= 126);
+      if (chars.length > 2) {
+        return `"${String.fromCharCode(...chars)}"`;
+      }
+    } catch {}
+    return match;
+  });
+
+  // Limpiar espacios
+  code = code.replace(/[ \t]+/g, " ");
+  code = code.replace(/\n{3,}/g, "\n\n");
+  code = code.replace(/;\s*;/g, ";");
+
+  return code.trim();
 }
 
-// ============ API ENDPOINTS ============
+// ==================== ENDPOINTS ====================
 
 app.post("/api/detect", (req, res) => {
   const { code } = req.body;
@@ -166,8 +191,22 @@ app.post("/api/dump", (req, res) => {
 app.post("/api/cleanup", (req, res) => {
   const { code } = req.body;
   if (!code) return res.status(400).json({ error: "No code provided" });
-  const cleaned = moonsecCleanup(code);
+  const cleaned = basicBeautify(code);
   res.json({ result: cleaned || "-- Empty after cleanup" });
+});
+
+app.post("/api/deobfuscate", (req, res) => {
+  const { code } = req.body;
+  if (!code) return res.status(400).json({ error: "No code provided" });
+
+  const detected = detectObfuscator(code);
+  const cleaned = advancedCleanup(code);
+
+  res.json({
+    detected: detected[0],
+    result: cleaned || "-- No se pudo limpiar el código",
+    note: "Esto es una limpieza avanzada + beautify. No es un desofuscador completo de MoonSec/Luraph.",
+  });
 });
 
 app.get("*", (req, res) => {
