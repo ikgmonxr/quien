@@ -3,459 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QyrexApi — Protect & Deobfuscate Roblox Scripts</title>
-  <link rel="icon" href="https://i.postimg.cc/V5tC6bWH/25c9cf002db2d61220072a995411f584.png" type="image/png">
+  <title>QyrexApi — Deobfuscator</title>
+  <link rel="icon" href="https://i.postimg.cc/V5tC6bWH/25c9cf002db2d61220072a995411f584.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #050508;
-      --card: #0c0c12;
-      --border: #1e1e2a;
-      --pink: #ff2d95;
-      --cyan: #00e5ff;
-      --purple: #a855f7;
-      --text: #fff;
-      --muted: #8b8b9e;
+      --bg: #050508; --card: #0c0c12; --border: #1e1e2a;
+      --pink: #ff2d95; --cyan: #00e5ff; --muted: #8b8b9e;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-    .bg-orbs {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    }
-    .orb {
-      position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.3;
-      animation: float 20s ease-in-out infinite;
-    }
-    .orb-1 { width: 500px; height: 500px; background: var(--pink); top: -150px; left: -100px; }
-    .orb-2 { width: 400px; height: 400px; background: var(--purple); bottom: -100px; right: -80px; animation-delay: -7s; }
-    @keyframes float {
-      0%, 100% { transform: translate(0,0); }
-      50% { transform: translate(40px, -30px); }
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; min-height: 100vh; }
     header {
-      position: relative; z-index: 50;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 32px;
-      background: rgba(5,5,8,0.8);
-      backdrop-filter: blur(16px);
+      padding: 16px 32px; background: rgba(5,5,8,0.85); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-    .logo {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; color: #fff; font-weight: 700; font-size: 1.25rem;
-    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font-weight: 700; font-size: 1.25rem; }
     .logo img { width: 32px; height: 32px; border-radius: 8px; }
-    nav { display: flex; align-items: center; gap: 22px; }
-    nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
     nav a:hover { color: #fff; }
     .btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 10px 18px; border-radius: 9px;
-      font-weight: 600; font-size: 0.9rem; text-decoration: none;
-      border: none; cursor: pointer; transition: 0.2s;
+      display: inline-flex; padding: 10px 18px; border-radius: 9px;
+      font-weight: 600; font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer;
     }
-    .btn-primary {
-      background: linear-gradient(135deg, #ff2d95, #c51162);
-      color: #fff; box-shadow: 0 4px 20px rgba(255,45,149,0.35);
-    }
-    .btn-primary:hover { transform: translateY(-1px); }
-    .btn-ghost {
-      background: transparent; color: #fff; border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { border-color: #555; }
-
-    /* Hero */
-    .hero {
-      position: relative; z-index: 10;
-      max-width: 1100px; margin: 0 auto;
-      padding: 70px 32px 50px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 3rem; font-weight: 800; letter-spacing: -0.03em;
-      margin-bottom: 16px; line-height: 1.15;
-    }
-    .hero h1 span {
-      background: linear-gradient(135deg, #ff2d95, #00e5ff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 560px; margin: 0 auto 30px; }
-
-    /* Deobfuscator Tool */
-    .tool {
-      position: relative; z-index: 10;
-      max-width: 900px; margin: 0 auto 80px;
-      padding: 0 24px;
-    }
+    .btn-primary { background: linear-gradient(135deg, #ff2d95, #c51162); color: #fff; }
+    .hero { text-align: center; padding: 60px 20px 30px; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; }
+    .hero h1 span { background: linear-gradient(135deg, #ff2d95, #00e5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: var(--muted); max-width: 500px; margin: 0 auto; }
+    .tool { max-width: 860px; margin: 0 auto 60px; padding: 0 20px; }
     .tool-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 25px 50px -20px rgba(0,0,0,0.6);
-    }
-    .tool-card h2 {
-      font-size: 1.4rem; margin-bottom: 6px;
-    }
-    .tool-card .sub {
-      color: var(--muted); font-size: 0.9rem; margin-bottom: 20px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px;
     }
     textarea {
-      width: 100%;
-      height: 180px;
-      background: #08080e;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: #e0e0e0;
-      padding: 14px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      resize: vertical;
-      outline: none;
+      width: 100%; height: 170px; background: #08080e; border: 1px solid var(--border);
+      border-radius: 10px; color: #ddd; padding: 12px; font-family: monospace; font-size: 0.85rem; resize: vertical;
     }
-    textarea:focus { border-color: var(--pink); }
-    .actions {
-      display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 20px;
-    }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
     .btn-tool {
-      padding: 10px 18px; border-radius: 9px;
-      font-weight: 600; font-size: 0.88rem;
-      border: none; cursor: pointer; transition: 0.2s;
+      padding: 9px 16px; border-radius: 8px; font-weight: 600; font-size: 0.85rem;
+      border: none; cursor: pointer; color: #fff;
     }
-    .btn-detect { background: #1a1a28; color: #fff; border: 1px solid var(--border); }
-    .btn-detect:hover { border-color: var(--cyan); }
-    .btn-dump { background: linear-gradient(135deg, #ff2d95, #c51162); color: #fff; }
-    .btn-dump:hover { opacity: 0.9; }
-    .btn-clear { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-detect { background: #1a1a28; border: 1px solid var(--border); }
+    .btn-dump { background: linear-gradient(135deg, #ff2d95, #c51162); }
+    .btn-clean { background: #1a1a28; border: 1px solid var(--border); }
     .result-box {
-      background: #08080e;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      min-height: 120px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.82rem;
-      color: #00e5ff;
-      white-space: pre-wrap;
-      word-break: break-all;
-      max-height: 400px;
-      overflow-y: auto;
-      display: none;
+      background: #08080e; border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px; font-family: monospace; font-size: 0.8rem; color: #00e5ff;
+      white-space: pre-wrap; max-height: 380px; overflow-y: auto; display: none; margin-top: 12px;
     }
     .result-box.show { display: block; }
-    .detect-badge {
-      display: inline-block;
-      background: rgba(255,45,149,0.15);
-      border: 1px solid rgba(255,45,149,0.35);
-      color: var(--pink);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 12px;
+    .badge {
+      display: inline-block; background: rgba(255,45,149,0.15); border: 1px solid rgba(255,45,149,0.35);
+      color: var(--pink); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px;
     }
-
-    /* Features */
-    .features {
-      max-width: 1100px; margin: 0 auto 80px; padding: 0 24px;
-    }
-    .section-title {
-      text-align: center; font-size: 1.8rem; font-weight: 700; margin-bottom: 10px;
-    }
-    .section-sub {
-      text-align: center; color: var(--muted); margin-bottom: 40px;
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .feature {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 22px;
-      transition: 0.25s;
-    }
-    .feature:hover {
-      border-color: rgba(255,45,149,0.4);
-      transform: translateY(-3px);
-    }
-    .feature-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: rgba(255,45,149,0.12);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; margin-bottom: 12px;
-    }
-    .feature h3 { font-size: 1.05rem; margin-bottom: 6px; }
-    .feature p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
-
-    footer {
-      text-align: center; padding: 28px;
-      color: #555; font-size: 0.85rem;
-      border-top: 1px solid var(--border);
-    }
-    footer a { color: var(--muted); text-decoration: none; margin: 0 8px; }
-    footer a:hover { color: #fff; }
-
-    @media (max-width: 700px) {
-      .hero h1 { font-size: 2.2rem; }
-      nav a:not(.btn) { display: none; }
-      header { padding: 14px 18px; }
-    }
+    footer { text-align: center; padding: 24px; color: #555; font-size: 0.85rem; border-top: 1px solid var(--border); }
   </style>
 </head>
 <body>
-  <div class="bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-  </div>
-
   <header>
     <a href="/" class="logo">
       <img src="https://i.postimg.cc/V5tC6bWH/25c9cf002db2d61220072a995411f584.png" alt="QyrexApi">
       QyrexApi
     </a>
     <nav>
-      <a href="#tool">Deobfuscator</a>
-      <a href="#features">Features</a>
       <a href="https://discord.gg/22zBzxK6S" target="_blank">Discord</a>
       <a href="https://qyrex.hopto.org/" class="btn btn-primary">Dashboard</a>
     </nav>
   </header>
 
   <section class="hero">
-    <h1>Protect & <span>Deobfuscate</span><br>Roblox Scripts</h1>
-    <p>Detect obfuscators, extract strings, URLs and keys. Powered by the same engine as DarkBot.</p>
+    <h1>Script <span>Deobfuscator</span></h1>
+    <p>Detecta ofuscadores, extrae strings, URLs y keys. Motor basado en DarkBot.</p>
   </section>
 
-  <!-- DEOBFUSCATOR TOOL -->
-  <section class="tool" id="tool">
+  <section class="tool">
     <div class="tool-card">
-      <h2>🔓 Script Deobfuscator</h2>
-      <p class="sub">Pega el código ofuscado o sube un archivo .lua</p>
-
-      <textarea id="inputCode" placeholder="Pega aquí el script ofuscado (MoonSec, Luraph, IronBrew, etc.)..."></textarea>
-
+      <textarea id="inputCode" placeholder="Pega aquí el script ofuscado..."></textarea>
       <div class="actions">
-        <button class="btn-tool btn-detect" onclick="runDetect()">Detectar Ofuscador</button>
-        <button class="btn-tool btn-dump" onclick="runDump()">Dump Strings + Keys</button>
-        <button class="btn-tool btn-detect" onclick="runCleanup()">Limpieza Básica</button>
-        <button class="btn-tool btn-clear" onclick="clearAll()">Limpiar</button>
+        <button class="btn-tool btn-detect" onclick="callAPI('detect')">Detectar</button>
+        <button class="btn-tool btn-dump" onclick="callAPI('dump')">Dump Strings + Keys</button>
+        <button class="btn-tool btn-clean" onclick="callAPI('cleanup')">Limpieza</button>
       </div>
-
-      <div id="detectResult"></div>
+      <div id="badge"></div>
       <div id="output" class="result-box"></div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="features" id="features">
-    <h2 class="section-title">Qué puede hacer</h2>
-    <p class="section-sub">Basado en el motor de DarkBot</p>
-    <div class="feature-grid">
-      <div class="feature">
-        <div class="feature-icon">🔍</div>
-        <h3>Detector de Ofuscadores</h3>
-        <p>MoonSec V3, Luraph, IronBrew, Prometheus, PSU, WeAreDevs y más.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">📝</div>
-        <h3>String Dump</h3>
-        <p>Extrae strings, incluyendo los codificados con string.char.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🔗</div>
-        <h3>URLs & Keys</h3>
-        <p>Encuentra HttpGet, loadstrings, posibles tokens y keys.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🧹</div>
-        <h3>Limpieza Básica</h3>
-        <p>Quita headers de MoonSec y hace un beautify simple.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <a href="#tool">Deobfuscator</a>
-    <a href="https://discord.gg/22zBzxK6S" target="_blank">Discord</a>
-    <a href="https://qyrex.hopto.org/">Dashboard</a>
-    <br><br>
-    © 2026 QyrexApi — Engine based on DarkBot by Matzz Hub
-  </footer>
+  <footer>© 2026 QyrexApi — Engine based on DarkBot</footer>
 
   <script>
-    // ============ LÓGICA EXTRAÍDA DEL DARKBOT ============
+    async function callAPI(type) {
+      const code = document.getElementById("inputCode").value.trim();
+      if (!code) return alert("Pega un script primero");
 
-    const DETECT_RULES = [
-      [/This file was protected with MoonSec V3/i, "MoonSec V3", 0.98],
-      [/MoonSec V3/i, "MoonSec V3", 0.92],
-      [/\bluraph\b|LPH_|Luraph/i, "Luraph", 0.95],
-      [/IronBrew|IB2_|ironbrew/i, "IronBrew", 0.93],
-      [/newproxy\s*,\s*.*metatable.*select/i, "Prometheus", 0.90],
-      [/\bPrometheus\b/i, "Prometheus", 0.88],
-      [/WeAreDevs|WRD_/i, "WeAreDevs", 0.90],
-      [/PSUObfuscator|\bPSU\b/i, "PSU", 0.87],
-      [/luaobfuscator\.com|v0=string\.char;local v1=string\.byte/i, "LuaObfuscator.com", 0.90],
-      [/return\s+[A-Za-z0-9_]+\([0-9A-Za-z_]+\(\)\s*,/i, "IronBrew 2", 0.85],
-      [/loadstring\s*\(\s*game:HttpGet/i, "HttpGet Loader", 0.80],
-      [/getfenv\s*\(|setfenv\s*\(/i, "Env Manipulation", 0.70],
-      [/string\.char\s*\(\s*\d+/i, "String Char Encoding", 0.65],
-    ];
+      const output = document.getElementById("output");
+      const badge = document.getElementById("badge");
+      output.textContent = "Procesando...";
+      output.classList.add("show");
 
-    function detectObfuscator(code) {
-      const found = {};
-      for (const [regex, name, score] of DETECT_RULES) {
-        if (regex.test(code)) {
-          if (!found[name] || score > found[name]) found[name] = score;
+      try {
+        const res = await fetch(`/api/${type}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code })
+        });
+        const data = await res.json();
+
+        if (type === "detect") {
+          badge.innerHTML = `<div class="badge">Detectado: ${data.detected[0][0]} (${Math.round(data.detected[0][1]*100)}%)</div>`;
+          output.textContent = data.detected.map(([n,s]) => `${n} → ${Math.round(s*100)}%`).join("\n");
+        } else if (type === "dump") {
+          badge.innerHTML = `<div class="badge">Detectado: ${data.detected[0]}</div>`;
+          output.textContent = data.result;
+        } else {
+          badge.innerHTML = "";
+          output.textContent = data.result;
         }
+      } catch (err) {
+        output.textContent = "Error al conectar con el servidor";
       }
-      const ordered = Object.entries(found).sort((a, b) => b[1] - a[1]);
-      return ordered.length ? ordered : [["Clean / Unknown", 0.40]];
-    }
-
-    function extractStrings(code, minLen = 4) {
-      const strings = [];
-      // Normal strings
-      const strRegex = /(["'])(?:\\.|[^\\])*?\1/g;
-      let m;
-      while ((m = strRegex.exec(code)) !== null) {
-        const s = m[0].slice(1, -1);
-        if (s.length >= minLen && s.trim()) strings.push(s);
-      }
-      // [[ long strings ]]
-      const longRegex = /\[\[(.*?)\]\]/gs;
-      while ((m = longRegex.exec(code)) !== null) {
-        if (m[1].length >= minLen) strings.push(m[1]);
-      }
-      // string.char(...)
-      const charRegex = /string\.char\s*\(([\d\s,]+)\)/g;
-      while ((m = charRegex.exec(code)) !== null) {
-        try {
-          const nums = m[1].split(",").map(x => parseInt(x.trim())).filter(n => !isNaN(n) && n >= 0 && n <= 255);
-          const decoded = String.fromCharCode(...nums);
-          if (decoded.length >= minLen) strings.push(decoded);
-        } catch {}
-      }
-      return strings;
-    }
-
-    function extractInteresting(code) {
-      const urls = [...new Set((code.match(/https?:\/\/[^\s'"\)\]]+/g) || [])];
-      const httpgets = [...new Set((code.match(/HttpGet\s*\(\s*['"]([^'"]+)['"]/gi) || []).map(x => x.replace(/HttpGet\s*\(\s*['"]/i, "").replace(/['"].*/, "")))];
-      const keys = [];
-      const keyRegex = /["']([a-f0-9]{16,}|[A-Za-z0-9_\-]{20,})["']/g;
-      let m;
-      while ((m = keyRegex.exec(code)) !== null) keys.push(m[1]);
-      return { urls, httpgets, keys: [...new Set(keys)] };
-    }
-
-    function basicBeautify(code) {
-      code = code.replace(/--\[\[.*?\]\]/gs, "");
-      code = code.replace(/--[^\n]*/g, "");
-      code = code.replace(/[ \t]+/g, " ");
-      code = code.replace(/\n{3,}/g, "\n\n");
-      return code.trim();
-    }
-
-    function moonsecCleanup(code) {
-      code = code.replace(/\(\[\[This file was protected with MoonSec V3.*?\]\]\):gsub\(.*?function\(.*?end\)/gis, "");
-      code = code.replace(/This file was protected with MoonSec V3[^\n]*/gi, "");
-      return basicBeautify(code);
-    }
-
-    // ============ UI FUNCTIONS ============
-
-    function getCode() {
-      return document.getElementById("inputCode").value.trim();
-    }
-
-    function showOutput(text) {
-      const el = document.getElementById("output");
-      el.textContent = text;
-      el.classList.add("show");
-    }
-
-    function runDetect() {
-      const code = getCode();
-      if (!code) return alert("Pega un script primero");
-      const detected = detectObfuscator(code);
-      const [name, score] = detected[0];
-      document.getElementById("detectResult").innerHTML =
-        `<div class="detect-badge">Detectado: ${name} (${Math.round(score * 100)}%)</div>`;
-      showOutput(detected.map(([n, s]) => `${n} → ${Math.round(s * 100)}%`).join("\n"));
-    }
-
-    function runDump() {
-      const code = getCode();
-      if (!code) return alert("Pega un script primero");
-
-      const detected = detectObfuscator(code);
-      const strings = extractStrings(code, 4);
-      const interesting = extractInteresting(code);
-
-      let out = [];
-      out.push("-- ══════════════════════════════════════");
-      out.push("-- QyrexApi · Advanced Dump");
-      out.push("-- Engine based on DarkBot");
-      out.push("-- ══════════════════════════════════════\n");
-      out.push(`-- Detected: ${detected[0][0]} (${Math.round(detected[0][1] * 100)}%)`);
-      out.push(`-- Total strings: ${strings.length}`);
-      out.push(`-- URLs found: ${interesting.urls.length}`);
-      out.push(`-- Possible keys: ${interesting.keys.length}\n`);
-
-      if (interesting.urls.length) {
-        out.push("-- === URLs ===");
-        interesting.urls.slice(0, 40).forEach(u => out.push("-- " + u));
-        out.push("");
-      }
-      if (interesting.httpgets.length) {
-        out.push("-- === HttpGet ===");
-        interesting.httpgets.slice(0, 20).forEach(h => out.push("-- " + h));
-        out.push("");
-      }
-      if (interesting.keys.length) {
-        out.push("-- === Possible Keys / Tokens ===");
-        interesting.keys.slice(0, 30).forEach(k => out.push("-- " + k));
-        out.push("");
-      }
-
-      out.push("-- === STRING DUMP ===");
-      const seen = new Set();
-      let count = 0;
-      strings.sort((a, b) => b.length - a.length);
-      for (const s of strings) {
-        const s2 = s.trim();
-        if (s2.length < 4 || seen.has(s2)) continue;
-        if (/^[\d\s,\.]+$/.test(s2)) continue;
-        seen.add(s2);
-        count++;
-        out.push(`[${String(count).padStart(3, "0")}] ${s2.slice(0, 220)}`);
-        if (count >= 300) break;
-      }
-      out.push(`\n-- Dump finished · ${count} unique strings`);
-
-      document.getElementById("detectResult").innerHTML =
-        `<div class="detect-badge">Detectado: ${detected[0][0]}</div>`;
-      showOutput(out.join("\n"));
-    }
-
-    function runCleanup() {
-      const code = getCode();
-      if (!code) return alert("Pega un script primero");
-      const cleaned = moonsecCleanup(code);
-      showOutput(cleaned || "-- No se pudo limpiar / código vacío");
-    }
-
-    function clearAll() {
-      document.getElementById("inputCode").value = "";
-      document.getElementById("output").classList.remove("show");
-      document.getElementById("output").textContent = "";
-      document.getElementById("detectResult").innerHTML = "";
     }
   </script>
 </body>
